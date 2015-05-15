@@ -395,6 +395,8 @@ def _get_adapter(client):
         if adapter_name and adapter['name'] == adapter_name:
             adapter_id = adapter['id']
             logging.info('adapter name %s matches: %s', adapter_name, adapter)
+            #meimei add
+            distributed_system_id = adapter['distributed_system_id']
         elif (
             'distributed_system_name' in item and
             adapter['distributed_system_name']
