@@ -501,12 +501,18 @@ def _add_cluster(client, adapter_id, os_id, flavor_id, machines):
     status, resp = client.add_cluster(
         cluster_name, adapter_id,
         os_id, flavor_id)
-    logging.info('add cluster %s status: %s, resp: %s',
-                 cluster_name, status, resp)
-    if status >= 400:
+    if status >= 400 and resp['message'].find("exist")<0:
         msg = 'failed to add cluster %s with adapter %s os %s flavor %s' % (
             cluster_name, adapter_id, os_id, flavor_id)
         raise Exception(msg)
+    logging.info('add cluster %s status: %s resp:%s', 
+                 cluster_name, status,resp)
+    #if cluster exsist
+    if resp['message'].find("exist")>0:
+        status, resp = client.list_clusters(cluster_name)
+        logging.info('meimei log : list cluster status: %s,  cluster id :%s resp: %s',
+              status, resp[0]['id'], resp)
+        resp = resp[0]
 
     cluster = resp
     cluster_id = cluster['id']
@@ -726,11 +732,18 @@ def _set_host_networking(client, host_mapping, subnet_mapping):
                 hostname, interface, ip_addr, properties,
                 status, response
             )
-            if status >= 400:
+
+            if status >= 400 and (response['message'].find("exist")<0):
                 msg = 'failed to set host %s interface %s network' % (
                     hostname, interface
                 )
                 raise Exception(msg)
+            status, resp = client.get_host_network( host_id, subnet_id)
+            logging.info(
+                'meimei log : status: %s, host network %s ',
+                status, resp
+            )
+
             host_ips.setdefault(hostname, []).append(ip_addr)
     return host_ips
 
