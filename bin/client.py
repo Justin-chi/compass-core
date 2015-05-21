@@ -189,7 +189,9 @@ flags.add('dashboard_url',
 flags.add('dashboard_link_pattern',
           help='dashboard link pattern',
           default=r'(?m)(http://\d+\.\d+\.\d+\.\d+:5000/v2\.0)')
-
+flags.add('cluster_ip',
+          help='cluster ip address'
+          default='')
 
 def _load_config(config_filename):
     if not config_filename:
@@ -820,6 +822,8 @@ def _set_cluster_package_config(client, cluster_id):
         util.merge_dict(
             package_config, _load_config(package_config_filename)
         )
+
+    package_config['VIP']=flags.OPTIONS.cluster_ip
     status, resp = client.update_cluster_config(
         cluster_id, package_config=package_config)
     logging.info(
