@@ -31,6 +31,6 @@ $compute_hostname ansible_ssh_host=$compute_ip ansible_ssh_user=$username ansibl
 #for ha in $has
     #set ha_ip = $ha.management.ip
     #set ha_hostname = $ha.hostname
-$network_hostname ansible_ssh_host=$network_ip ansible_ssh_user=$username ansible_ssh_password=$password
+$ha_hostname ansible_ssh_host=$ha_ip ansible_ssh_user=$username ansible_ssh_password=$password
 #end for
 

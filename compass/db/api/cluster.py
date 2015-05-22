@@ -398,13 +398,10 @@ def get_cluster_metadata(cluster_id, user=None, session=None, **kwargs):
         metadatas['os_config'] = metadata_api.get_os_metadata_internal(
             session, os.id
         )
-    adapter = cluster.adapter
-    if adapter:
-        metadatas['package_config'] = (
-            metadata_api.get_package_metadata_internal(
-                session, adapter.id
-            )
-        )
+
+    metadatas['package_config'] = metadata_api.get_flavor_metadata_internal(
+        session, cluster.flavor_id   
+    )
     return metadatas
 
 

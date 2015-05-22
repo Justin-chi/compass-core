@@ -14,14 +14,14 @@
 #end if
 
 controllers_host: $ha_vip
-db_host: $worker_ip
-rabbit_host: $worker_ip
-storage_controller_host: $worker_ip
-image_host: $worker_ip
-identity_host: $worker_ip
-controllers_host: $worker_ip
-network_server_host: $worker_ip
-dashboard_host: $worker_ip
+db_host: $ha_vip
+rabbit_host: $ha_vip
+storage_controller_host: $ha_vip
+image_host: $ha_vip
+identity_host: $ha_vip
+controllers_host: $ha_vip
+network_server_host: $ha_vip
+dashboard_host: $ha_vip
 
 #for network in $controllers
     #set network_external_nic = $network.external.interface
