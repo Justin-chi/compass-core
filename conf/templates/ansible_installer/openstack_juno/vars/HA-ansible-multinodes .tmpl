@@ -1,0 +1,90 @@
+#set cluster_name = $getVar('name', '')
+#set controllers = $getVar('controller', [])
+#set computers = $getVar('compute', [])
+#set has = $getVar('ha', [])
+#set ha_vip = $getVar('ha_vip', [])
+#if not $isinstance($controllers, list)
+    #set controllers = [$controllers]
+#end if
+#if not $isinstance($computers, list)
+    #set computers = [$computers]
+#end if
+#if not $isinstance($has, list)
+    #set has = [$has]
+#end if
+
+controllers_host: $ha_vip
+db_host: $worker_ip
+rabbit_host: $worker_ip
+storage_controller_host: $worker_ip
+image_host: $worker_ip
+identity_host: $worker_ip
+controllers_host: $worker_ip
+network_server_host: $worker_ip
+dashboard_host: $worker_ip
+
+#for network in $controllers
+    #set network_external_nic = $network.external.interface
+    #set network_internal_nic = $network.management.interface
+INTERFACE_NAME: $network_external_nic    
+INTERNAL_INTERFACE: $network_internal_nic
+#end for
+
+db_bkp: $has
+
+#set credentials = $getVar('service_credentials', {})
+#set rabbit_username = $credentials.rabbitmq.username
+#set rabbit_password = $credentials.rabbitmq.password
+
+cluster_name: $cluster_name
+
+odl_controller: 10.1.0.15
+
+DEBUG: False
+VERBOSE: False
+NTP_SERVER_LOCAL: "{{ controllers_host }}"
+DB_HOST: "{{ db_host }}"
+MQ_BROKER: rabbitmq
+
+OPENSTACK_REPO: cloudarchive-juno.list
+juno_cloud_archive: deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/juno main
+ADMIN_TOKEN: admin
+CEILOMETER_TOKEN: c095d479023a0fd58a54
+
+RABBIT_PASS: $rabbit_password
+KEYSTONE_DBPASS: keystone_db_secret
+DEMO_PASS: demo_secret
+ADMIN_PASS: admin_secret
+GLANCE_DBPASS: glance_db_secret
+GLANCE_PASS: glance_secret
+NOVA_DBPASS: nova_db_secret
+NOVA_PASS: nova_secret
+DASH_DBPASS: dash_db_secret
+CINDER_DBPASS: cinder_db_secret
+CINDER_PASS: cinder_secret
+NEUTRON_DBPASS: neutron_db_secret
+NEUTRON_PASS: netron_secret
+NEUTRON_TYPE_DRIVERS: ['flat', 'gre', 'vxlan']
+NEUTRON_TENANT_NETWORK_TYPES: ['vxlan']
+#NEUTRON_MECHANISM_DRIVERS: ['opendaylight']
+NEUTRON_MECHANISM_DRIVERS: ['openvswitch']
+NEUTRON_TUNNEL_TYPES: ['vxlan']
+METADATA_SECRET: metadata_secret
+INSTANCE_TUNNELS_INTERFACE_IP_ADDRESS: 10.1.1.21
+
+EXTERNAL_NETWORK_CIDR: 203.0.113.0/24
+EXTERNAL_NETWORK_GATEWAY: 203.0.113.1
+FLOATING_IP_START: 203.0.113.101
+FLOATING_IP_END: 203.0.113.200
+
+build_in_image: http://cdn.download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
+build_in_image_name: cirros-0.3.3-x86_64-disk.img
+
+physical_device: /dev/sdb
+
+internal_interface: "ansible_{{ INTERNAL_INTERFACE }}"
+internal_ip: "{{ hostvars[inventory_hostname][internal_interface]['ipv4']['address'] }}"
+
+odl_username: admin
+odl_password: admin
+odl_api_port: 8080
