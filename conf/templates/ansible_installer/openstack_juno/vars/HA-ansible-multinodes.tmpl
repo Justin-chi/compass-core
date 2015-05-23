@@ -30,8 +30,8 @@ INTERFACE_NAME: $network_external_nic
 INTERNAL_INTERFACE: $network_internal_nic
 #end for
 
-ha_cluster: "True"
-WSREP_BKP: $has
+ha: "True"
+WSREP_BKP:
 #set prev = {"hostname": "", "ip": ""}
 #for ha in has
    $ha.hostname: $prev.ip
