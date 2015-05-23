@@ -30,7 +30,13 @@ INTERFACE_NAME: $network_external_nic
 INTERNAL_INTERFACE: $network_internal_nic
 #end for
 
-db_bkp: $has
+ha_cluster: "True"
+WSREP_BKP: $has
+#set prev = {"hostname": "", "ip": ""}
+#for ha in has
+   $ha.hostname: $prev.ip
+   #set prev = $host
+#end for
 
 #set credentials = $getVar('service_credentials', {})
 #set rabbit_username = $credentials.rabbitmq.username
@@ -70,6 +76,9 @@ NEUTRON_TENANT_NETWORK_TYPES: ['vxlan']
 NEUTRON_MECHANISM_DRIVERS: ['openvswitch']
 NEUTRON_TUNNEL_TYPES: ['vxlan']
 METADATA_SECRET: metadata_secret
+WSREP_SST_USER: wsrep_sst
+WSREP_SST_PASS: wsrep_sst_sercet
+
 INSTANCE_TUNNELS_INTERFACE_IP_ADDRESS: 10.1.1.21
 
 EXTERNAL_NETWORK_CIDR: 203.0.113.0/24
@@ -79,6 +88,11 @@ FLOATING_IP_END: 203.0.113.200
 
 build_in_image: http://cdn.download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
 build_in_image_name: cirros-0.3.3-x86_64-disk.img
+
+MARIADB: mysql-server-wsrep-5.5.23-23.6-amd64.deb
+MARIADB_URL: http://launchpad.net/codership-mysql/5.5/5.5.23-23.6/+download/{{ MARIADB }}
+GALERA: galera-23.2.1-amd64.deb
+GALERA_URL: http://launchpad.net/galera/2.x/23.2.1/+download/{{ GALERA }}
 
 physical_device: /dev/sdb
 
