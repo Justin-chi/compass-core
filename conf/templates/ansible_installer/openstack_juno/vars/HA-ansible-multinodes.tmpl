@@ -19,7 +19,6 @@ rabbit_host: $ha_vip
 storage_controller_host: $ha_vip
 image_host: $ha_vip
 identity_host: $ha_vip
-controllers_host: $ha_vip
 network_server_host: $ha_vip
 dashboard_host: $ha_vip
 
@@ -36,7 +35,11 @@ WSREP_BKP:
 #for ha in has
    $ha.hostname: $prev.ip
    #set prev = $host
+   #set vip_netmask = $ha.netmask
 #end for
+
+HA_VIP: $ha_vip
+HA_NETMASK: $vip_netmask
 
 #set credentials = $getVar('service_credentials', {})
 #set rabbit_username = $credentials.rabbitmq.username
