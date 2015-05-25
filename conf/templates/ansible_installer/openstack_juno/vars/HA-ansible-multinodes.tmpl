@@ -34,7 +34,7 @@ WSREP_BKP:
 #set prev = {"hostname": "", "ip": ""}
 #for ha in has
    $ha.hostname: $prev.ip
-   #set prev = $host
+   #set prev = $ha
    #set vip_netmask = $ha.netmask
 #end for
 
