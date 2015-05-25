@@ -31,11 +31,11 @@ INTERNAL_INTERFACE: $network_internal_nic
 
 ha: "True"
 WSREP_BKP:
-#set prev = {"hostname": "", "ip": ""}
+#set prev = {"hostname": "", "management":{"ip": ""}}
 #for ha in has
-   $ha.hostname: $prev.ip
+   $ha.hostname: $prev.management.ip
    #set prev = $ha
-   #set vip_netmask = $ha.netmask
+   #set vip_netmask = $ha.management.netmask
 #end for
 
 HA_VIP: $ha_vip
