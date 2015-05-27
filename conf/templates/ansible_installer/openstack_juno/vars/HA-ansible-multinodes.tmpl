@@ -30,7 +30,7 @@ INTERNAL_INTERFACE: $network_internal_nic
 #end for
 
 ha: "True"
-WSREP_BKP:
+HA_CLUSTER:
 #set prev = {"hostname": "", "management":{"ip": ""}}
 #for ha in has
    $ha.hostname: $prev.management.ip

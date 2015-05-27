@@ -338,5 +338,6 @@ class AnsibleInstaller(PKInstaller):
         cmd = "ANSIBLE_CONFIG=%s ansible-playbook -i %s %s" % (config_file,
                                                                inventory_file,
                                                                playbook_file)
+        logging.info("cluster_os_ready:%s" % cmd)
         with open(log_file, 'w') as logfile:
             subprocess.Popen(cmd, shell=True, stdout=logfile, stderr=logfile)
