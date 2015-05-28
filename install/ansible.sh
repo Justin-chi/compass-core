@@ -23,3 +23,5 @@ sudo mkdir -p /var/ansible/run
 sudo mkdir -p /root/backup/ansible
 sudo cp -rn /var/ansible/* /root/backup/ansible/
 sudo cp -rf $ADAPTERS_HOME/ansible/* /var/ansible/
+
+
