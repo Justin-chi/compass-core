@@ -1,11 +1,11 @@
 #set controllers = $getVar('controller', [])
-#set computers = $getVar('computer', [])
+#set computes = $getVar('compute', [])
 #set has = $getVar('ha', [])
 #if not $isinstance($controllers, list)
     #set controllers = [$controllers]
 #end if
-#if not $isinstance($computers, list)
-    #set computers = [$computers]
+#if not $isinstance($computes, list)
+    #set computes = [$computes]
 #end if
 #if not $isinstance(has, list)
     #set has = [has]
@@ -20,10 +20,10 @@
 $controller_hostname ansible_ssh_host=$controller_ip ansible_ssh_user=$username ansible_ssh_password=$password
 #end for
 
-[computer]
-#for computer in $computers
-    #set computer_ip = $compute.management.ip
-    #set computer_hostname = $compute.hostname
+[compute]
+#for compute in $computes
+    #set compute_ip = $compute.management.ip
+    #set compute_hostname = $compute.hostname
 $compute_hostname ansible_ssh_host=$compute_ip ansible_ssh_user=$username ansible_ssh_password=$password
 #end for
 
