@@ -190,7 +190,7 @@ flags.add('dashboard_link_pattern',
           help='dashboard link pattern',
           default=r'(?m)(http://\d+\.\d+\.\d+\.\d+:5000/v2\.0)')
 flags.add('cluster_ip',
-          help='cluster ip address'
+          help='cluster ip address',
           default='')
 
 def _load_config(config_filename):
