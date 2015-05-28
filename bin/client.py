@@ -510,7 +510,7 @@ def _add_cluster(client, adapter_id, os_id, flavor_id, machines):
     logging.info('add cluster %s status: %s resp:%s', 
                  cluster_name, status,resp)
     #if cluster exsist
-    if resp['message'].find("exist")>0:
+    if status >= 400 and resp['message'].find("exist")>0:
         status, resp = client.list_clusters(cluster_name)
         logging.info('meimei log : list cluster status: %s,  cluster id :%s resp: %s',
               status, resp[0]['id'], resp)
