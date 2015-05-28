@@ -823,9 +823,10 @@ def _set_cluster_package_config(client, cluster_id):
             package_config, _load_config(package_config_filename)
         )
 
-    package_config.setdefault(
-             'ha_proxy', {}
-        )['vip'] = flags.OPTIONS.cluster_ip
+    if flags.OPTIONS.cluster_ip != '':
+        package_config.setdefault(
+                 'ha_proxy', {}
+            )['vip'] = flags.OPTIONS.cluster_ip
         
     status, resp = client.update_cluster_config(
         cluster_id, package_config=package_config)
