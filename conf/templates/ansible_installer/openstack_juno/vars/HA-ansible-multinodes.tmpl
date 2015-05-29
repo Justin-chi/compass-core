@@ -13,22 +13,23 @@
     #set has = [$has]
 #end if
 
-controllers_host: $ha_vip
-db_host: $ha_vip
-rabbit_host: $ha_vip
-storage_controller_host: $ha_vip
-compute_controller_host: $ha_vip
-image_host: $ha_vip
-identity_host: $ha_vip
-network_server_host: $ha_vip
-dashboard_host: $ha_vip
-
 #for network in $controllers
     #set network_external_nic = $network.external.interface
     #set network_internal_nic = $network.management.interface
 INTERFACE_NAME: $network_external_nic    
 INTERNAL_INTERFACE: $network_internal_nic
 #end for
+
+db_host: $ha_vip
+rabbit_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+controllers_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+storage_controller_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+compute_controller_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+image_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+identity_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+network_server_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+dashboard_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+
 
 HA_CLUSTER:
 #set prev = {"hostname": "", "management":{"ip": ""}}
