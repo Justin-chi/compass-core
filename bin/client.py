@@ -189,7 +189,7 @@ flags.add('dashboard_url',
 flags.add('dashboard_link_pattern',
           help='dashboard link pattern',
           default=r'(?m)(http://\d+\.\d+\.\d+\.\d+:5000/v2\.0)')
-flags.add('cluster_ip',
+flags.add('cluster_vip',
           help='cluster ip address',
           default='')
 
@@ -823,10 +823,10 @@ def _set_cluster_package_config(client, cluster_id):
             package_config, _load_config(package_config_filename)
         )
 
-    if flags.OPTIONS.cluster_ip != '':
+    if flags.OPTIONS.cluster_vip != '':
         package_config.setdefault(
                  'ha_proxy', {}
-            )['vip'] = flags.OPTIONS.cluster_ip
+            )['vip'] = flags.OPTIONS.cluster_vip
         
     status, resp = client.update_cluster_config(
         cluster_id, package_config=package_config)
