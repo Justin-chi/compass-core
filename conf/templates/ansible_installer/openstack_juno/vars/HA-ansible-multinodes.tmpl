@@ -21,14 +21,14 @@ INTERNAL_INTERFACE: $network_internal_nic
 #end for
 
 db_host: $ha_vip
-rabbit_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
-controllers_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
-storage_controller_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
-compute_controller_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
-image_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
-identity_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
-network_server_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
-dashboard_host: {{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}
+rabbit_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
+controllers_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
+storage_controller_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
+compute_controller_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
+image_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
+identity_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
+network_server_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
+dashboard_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
 
 
 HA_CLUSTER:
