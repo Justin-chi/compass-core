@@ -21,15 +21,18 @@ INTERNAL_INTERFACE: $network_internal_nic
 #end for
 
 db_host: $ha_vip
-rabbit_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
-controllers_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
-storage_controller_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
-compute_controller_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
-image_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
-identity_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
-network_server_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
-dashboard_host: "{{ hostvars[inventory_hostname]['ansible_' + INTERNAL_INTERFACE].ipv4.address }}"
 
+internal_interface: "ansible_{{ INTERNAL_INTERFACE }}"
+internal_ip: "{{ hostvars[inventory_hostname][internal_interface]['ipv4']['address'] }}"
+
+rabbit_host: "{{ internal_ip }}"
+controllers_host: "{{ internal_ip }}"
+storage_controller_host: "{{ internal_ip }}"
+compute_controller_host: "{{ internal_ip }}"
+image_host: "{{ internal_ip }}"
+identity_host: "{{ internal_ip }}"
+network_server_host: "{{ internal_ip }}"
+dashboard_host: "{{ internal_ip }}"
 
 HA_CLUSTER:
 #set prev = {"hostname": "", "management":{"ip": ""}}
@@ -102,9 +105,6 @@ GALERA: galera-23.2.1-amd64.deb
 GALERA_URL: http://launchpad.net/galera/2.x/23.2.1/+download/{{ GALERA }}
 
 physical_device: /dev/sdb
-
-internal_interface: "ansible_{{ INTERNAL_INTERFACE }}"
-internal_ip: "{{ hostvars[inventory_hostname][internal_interface]['ipv4']['address'] }}"
 
 odl_username: admin
 odl_password: admin
