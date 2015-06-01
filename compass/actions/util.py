@@ -299,6 +299,10 @@ class ActionHelper(object):
         )
 
     @staticmethod
+    def is_cluster_os_ready(cluster_id, user=None):
+        return cluster_db.is_cluster_os_ready(cluster_id, user=user)
+
+    @staticmethod
     def cluster_ready(cluster_id, from_database_only, user):
         cluster_db.update_cluster_state_internal(
             cluster_id, from_database_only=from_database_only,
