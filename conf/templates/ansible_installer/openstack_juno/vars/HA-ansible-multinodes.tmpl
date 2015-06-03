@@ -21,16 +21,16 @@ INTERNAL_INTERFACE: $network_internal_nic
 #end for
 
 db_host: $ha_vip
+identity_host: $ha_vip
+rabbit_host: $ha_vip 
 
 internal_interface: "ansible_{{ INTERNAL_INTERFACE }}"
 internal_ip: "{{ hostvars[inventory_hostname][internal_interface]['ipv4']['address'] }}"
 
-rabbit_host: "{{ internal_ip }}"
 controllers_host: "{{ internal_ip }}"
 storage_controller_host: "{{ internal_ip }}"
 compute_controller_host: "{{ internal_ip }}"
 image_host: "{{ internal_ip }}"
-identity_host: "{{ internal_ip }}"
 network_server_host: "{{ internal_ip }}"
 dashboard_host: "{{ internal_ip }}"
 
