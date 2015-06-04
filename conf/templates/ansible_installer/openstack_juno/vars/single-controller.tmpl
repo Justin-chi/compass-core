@@ -91,7 +91,7 @@ physical_device: /dev/sdb
 
 internal_interface: "ansible_{{ INTERNAL_INTERFACE }}"
 internal_ip: "{{ hostvars[inventory_hostname][internal_interface]['ipv4']['address'] }}"
-
+HA_VIP: {{ internal_ip }}
 odl_username: admin
 odl_password: admin
 odl_api_port: 8080
