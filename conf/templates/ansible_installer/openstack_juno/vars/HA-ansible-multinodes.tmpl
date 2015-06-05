@@ -35,7 +35,7 @@ network_server_host: "{{ internal_ip }}"
 dashboard_host: "{{ internal_ip }}"
 
 HA_CLUSTER:
-#set prev = {"hostname": "", "management":{"ip": ""}}
+#set prev = {"hostname": "", "management":{"ip": "''"}}
 #for ha in has
    $ha.hostname: $prev.management.ip
    #set prev = $ha
